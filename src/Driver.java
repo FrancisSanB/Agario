@@ -29,11 +29,11 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 
 	public Driver() {
 		JFrame frame = new JFrame("Agar.io");
-		frame.setSize(800,600);
+		frame.setSize(800, 600);
 		frame.add(this);
 		
 		/* add 50  Enemies */
-		for(int i =0 ; i < 10; i++) {
+		for(int i =0 ; i < 50; i++) {
 			enemies.add( new Enemy() );
 		}	
 		

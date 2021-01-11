@@ -10,7 +10,7 @@ public class Enemy {
 	private double k;
 	private Color color;
 	private int vmag, theta;
-	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
+	Rectangle word = new Rectangle(0, 0, 2000, 2000);
 	
 	public Enemy() {
 
@@ -60,7 +60,7 @@ public class Enemy {
 			vx *= -1;
 		}
 		if (y > word.getMaxY()) {
-			
+			vy *= -1;
 		}
 		if (x < word.getMinY()) {
 			vy *= -1;
