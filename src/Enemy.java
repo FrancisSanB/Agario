@@ -10,7 +10,7 @@ public class Enemy {
 	private double k;
 	private Color color;
 	private int vmag, theta;
-	Rectangle word = new Rectangle(0, 0, 2000, 2000);
+	Rectangle word = new Rectangle(0, 0, 1000, 1000);
 	
 	public Enemy() {
 
@@ -53,16 +53,16 @@ public class Enemy {
 	}
 	
 	public void collideWorld() {
-		if (x > word.getMaxX()) {
+		if (x >= word.getMaxX() - rad) {
 			vx *= -1;
 		}
-		if (x < word.getMinX()) {
+		if (x <= word.getMinX()) {
 			vx *= -1;
 		}
-		if (y > word.getMaxY()) {
+		if (y >= word.getMaxY() - rad) {
 			vy *= -1;
 		}
-		if (x < word.getMinY()) {
+		if (x <= word.getMinY()) {
 			vy *= -1;
 		}
 	}

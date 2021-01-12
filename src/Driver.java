@@ -13,18 +13,24 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	
 	//Create ArrayList for enemies
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	ArrayList<Food> foods = new ArrayList<Food>();
+	Cell p = new Cell();
 	
 	public void paint(Graphics g) {
 		
 		super.paintComponent(g);
+		g.drawRect(0, 0, 1000, 1000);
 		//g.fillOval(30, 30, 50, 50);
 		
 		//call each Enemy to paint themselves
+		for (Food f: foods) {
+			f.paint(g);
+		}
 		for(Enemy e: enemies) {
 			e.paint(g);
 		}
 		
-		isColliding();
+		//isColliding();
 	}
 
 	public Driver() {
@@ -33,9 +39,13 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		frame.add(this);
 		
 		/* add 50  Enemies */
-		for(int i =0 ; i < 50; i++) {
-			enemies.add( new Enemy() );
-		}	
+		for (int i = 0; i < 50; i++) {
+			enemies.add(new Enemy());
+		}
+		
+		for (int i = 0; i < 100; i++) {
+			foods.add(new Food());
+		}
 		
 		Timer t = new Timer(16, this);
 		t.start();
