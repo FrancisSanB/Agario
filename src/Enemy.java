@@ -10,12 +10,13 @@ public class Enemy {
 	private double k;
 	private Color color;
 	private int vmag, theta;
-	Rectangle word = new Rectangle(0, 0, 1000, 1000);
+	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
+	//Rectangle word = new Rectangle(200, 200, 750, 750);
 	
 	public Enemy() {
 
 		//random radius
-		rad = (int)(Math.random()*(60-10+1)+10);
+		rad = (int)(Math.random()*(60-15+1)+1);
 		
 		vmag = (int)(7-rad/10);
 		theta = (int)(Math.random()*(360-0+1)+0);
@@ -25,8 +26,8 @@ public class Enemy {
 		vy = (int)(vmag*(Math.sin(theta)));
 		
 		//spawn the enemy randomly anywhere on 800x600 screen
-		x = (int)(Math.random()*800);
-		y = (int)(Math.random()*600);
+		x = (int)(Math.random()*(word.getMaxX() - rad - word.getMinX() + 1) + word.getMinX());
+		y = (int)(Math.random()*(word.getMaxX() - rad- word.getMinX() + 1) + word.getMinX());
 		
 		//generate random color
 		int r = (int)(Math.random()*256);
@@ -38,6 +39,8 @@ public class Enemy {
 	
 	public void paint(Graphics g) {
 		update();
+		g.setColor(Color.black);
+		g.drawRect(word.x, word.x, word.width, word.height);
 		g.setColor(color);
 		g.fillOval(x, y, rad, rad);
 		
@@ -62,7 +65,7 @@ public class Enemy {
 		if (y >= word.getMaxY() - rad) {
 			vy *= -1;
 		}
-		if (x <= word.getMinY()) {
+		if (y <= word.getMinY()) {
 			vy *= -1;
 		}
 	}

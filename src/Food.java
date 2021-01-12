@@ -7,16 +7,16 @@ public class Food {
 	private int x, y;
 	private int rad;
 	private Color color;
-	Rectangle word = new Rectangle(0, 0, 1000, 1000);
+	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
 	
 	public Food() {
 
 		//random radius
 		rad = 10;
 		
-		//spawn the enemy randomly anywhere on 800x600 screen
-		x = (int)(Math.random()*word.getMaxX() - rad);
-		y = (int)(Math.random()*word.getMaxY()) - rad;
+		//spawn the food randomly anywhere on 800x600 screen
+		x = (int)(Math.random()*word.getMaxX() - rad + 1);
+		y = (int)(Math.random()*word.getMaxY() - rad + 1);
 		
 		//generate random color
 		int r = (int)(Math.random()*256);

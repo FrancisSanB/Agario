@@ -1,3 +1,5 @@
+import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,11 +17,13 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	ArrayList<Food> foods = new ArrayList<Food>();
 	Cell p = new Cell();
+	Font verdana = new Font("Verdana", Font.BOLD, 30);
 	
 	public void paint(Graphics g) {
 		
 		super.paintComponent(g);
-		g.drawRect(0, 0, 1000, 1000);
+		g.setFont(verdana);
+		g.drawString("Mass: " + p.getRad(), 0, 550);
 		//g.fillOval(30, 30, 50, 50);
 		
 		//call each Enemy to paint themselves
@@ -29,6 +33,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		for(Enemy e: enemies) {
 			e.paint(g);
 		}
+		p.paint(g);
 		
 		//isColliding();
 	}
@@ -46,6 +51,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		for (int i = 0; i < 100; i++) {
 			foods.add(new Food());
 		}
+		p = new Cell();
 		
 		Timer t = new Timer(16, this);
 		t.start();

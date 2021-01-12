@@ -13,19 +13,9 @@ public class Cell {
 	Rectangle word = new Rectangle(0, 0, 1000, 1000);
 	
 	public Cell() {
-
-		//random radius
-		rad = 15;
-		
-		//vmag = (int)(7-rad/10);
-		//theta = (int)(Math.random()*(360-0+1)+0);
+		rad = 20;
 		vx = 0;
 		vy = 0;
-		
-		//set vx, vy to non-zero value between -3, 3
-		//vx = (int)(vmag*(Math.cos(theta)));
-		//vy = (int)(vmag*(Math.sin(theta)));
-		
 		x = 400;
 		y = 300;
 		
