@@ -21,7 +21,6 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	Font verdana = new Font("Verdana", Font.BOLD, 30);
 	
 	public void paint(Graphics g) {
-		
 		super.paintComponent(g);
 		//g.fillOval(30, 30, 50, 50);
 		
@@ -32,12 +31,18 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		for(Enemy e: enemies) {
 			e.paint(g);
 			
-			//collision with enemies
-			for (Enemy e2: enemies) {
-				if (e.isColliding(e2)) {
-					System.out.println("collide");
+			/*for (Enemy e2: enemies) {
+				if (e == e2) {
+					continue;
 				}
-			}
+				if (e.isColliding(e2) ) {
+					if (e.getRad() > e2.getRad()) {
+						enemies.remove(e);
+					} else {
+						enemies.remove(e2);
+					}
+				}
+			}*/
 		}
 		p.paint(g);
 		
@@ -47,6 +52,27 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		g.drawString("Mass: " + p.getRad(), 0, 550);
 		g.drawString("Players left: " + enemies.size(), 0, 30);
 		
+		//enemy collision
+		for (int i = 0; i < enemies.size(); i++) {
+			//enemy to enemy collision
+			/*for (int j = 0; j < enemies.size(); j++) {
+				if (i == j) {
+					continue;
+				}
+				if (enemies.get(i).isColliding(enemies.get(j))) {
+					System.out.print("Collide! ");
+					if (enemies.get(i).getRad() >= enemies.get(j).getRad()) {
+						enemies.remove(j);
+						System.out.println("j");
+					} else { 
+						enemies.remove(i);
+						System.out.println("i");
+					}
+				}
+			}*/
+			for (int j = 0; j < foods.size(); j++) {
+			}
+		}
 		//Colliding();
 	}
 
@@ -110,6 +136,10 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		repaint();
+	}
+	
+	public void removeEnemy(Enemy e) {
+		enemies.remove(e);
 	}
 	
 	public void Colliding() {
