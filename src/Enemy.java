@@ -16,7 +16,7 @@ public class Enemy {
 	public Enemy() {
 
 		//random radius
-		rad = (int)(Math.random()*(60-15+1)+1);
+		rad = (int) ((Math.random()*(60 - 20))+20);
 		
 		vmag = (int)(7-rad/10);
 		theta = (int)(Math.random()*(360-0+1)+0);
@@ -55,6 +55,19 @@ public class Enemy {
 		y += vy;
 	}
 	
+	public boolean isColliding(Enemy e) {
+		//get the x distance and y distance between enemies and total radius
+		int x = Math.abs(e.getCenterX() - this.x);
+		int y = Math.abs(e.getCenterY() - this.y);
+		int totalRad = e.getRad() + rad;
+		
+		//calculate distance
+		int distance = (int) (Math.sqrt( (double)(Math.pow(x, x)) + (double)(Math.pow(y, y)) ));
+
+		//return if the distance is smaller than total radius
+		return distance < totalRad;
+	}
+	
 	public void collideWorld() {
 		if (x >= word.getMaxX() - rad) {
 			vx *= -1;
@@ -80,5 +93,13 @@ public class Enemy {
 	
 	public int getRad() {
 		return rad;
+	}
+	
+	public int getCenterX() {
+		return x + rad;
+	}
+	
+	public int getCenterY() {
+		return y + rad;
 	}
 }

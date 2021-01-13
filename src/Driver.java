@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -22,20 +23,31 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	public void paint(Graphics g) {
 		
 		super.paintComponent(g);
-		g.setFont(verdana);
-		g.drawString("Mass: " + p.getRad(), 0, 550);
 		//g.fillOval(30, 30, 50, 50);
 		
-		//call each Enemy to paint themselves
+		//call each object to paint themselves
 		for (Food f: foods) {
 			f.paint(g);
 		}
 		for(Enemy e: enemies) {
 			e.paint(g);
+			
+			//collision with enemies
+			for (Enemy e2: enemies) {
+				if (e.isColliding(e2)) {
+					System.out.println("collide");
+				}
+			}
 		}
 		p.paint(g);
 		
-		//isColliding();
+		//paint words
+		g.setColor(Color.black);
+		g.setFont(verdana);
+		g.drawString("Mass: " + p.getRad(), 0, 550);
+		g.drawString("Players left: " + enemies.size(), 0, 30);
+		
+		//Colliding();
 	}
 
 	public Driver() {
@@ -100,7 +112,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		repaint();
 	}
 	
-	public void isColliding() {
+	public void Colliding() {
 		int size = enemies.size();
 		
 		for (int i = 0; i < size; i++) {
