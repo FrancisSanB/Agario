@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -23,10 +23,30 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		//g.fillOval(30, 30, 50, 50);
+		double mouseX = MouseInfo.getPointerInfo().getLocation().getX();
+		double mouseY = MouseInfo.getPointerInfo().getLocation().getY();
+		double px = p.getCenterX();
+		double py = p.getCenterY();
+		double distanceX = mouseX - px;
+		double distanceY = mouseY - py;
+		double theta;
+		
+		if (distanceY == 0) {
+			theta = 0;
+		} else {
+			theta = Math.atan(distanceX / distanceY);
+		}
+		
+		double vx = Math.sin(theta)*p.getV();
+		double vy = Math.cos(theta)*p.getV();
+		System.out.println(vx + ", " + vy);
 		
 		//call each object to paint themselves
 		for (Food f: foods) {
 			f.paint(g);
+			f.setVx(vx);
+			f.setVy(vy);
+			
 		}
 		for(Enemy e: enemies) {
 			e.paint(g);
@@ -53,9 +73,9 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		g.drawString("Players left: " + enemies.size(), 0, 30);
 		
 		//enemy collision
-		for (int i = 0; i < enemies.size(); i++) {
+		/*for (int i = 0; i < enemies.size(); i++) {
 			//enemy to enemy collision
-			/*for (int j = 0; j < enemies.size(); j++) {
+			for (int j = 0; j < enemies.size(); j++) {
 				if (i == j) {
 					continue;
 				}
@@ -69,10 +89,11 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 						System.out.println("i");
 					}
 				}
-			}*/
+			}
+			
 			for (int j = 0; j < foods.size(); j++) {
 			}
-		}
+		}*/
 		//Colliding();
 	}
 

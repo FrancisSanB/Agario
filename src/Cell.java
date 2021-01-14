@@ -1,21 +1,18 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
 import java.awt.Rectangle;
 
 public class Cell {
-	
 	private int x, y;
-	private double vx, vy;
+	private double v;
 	private int rad;
-	private double k;
 	private Color color;
-	private int vmag, theta;
-	Rectangle word = new Rectangle(0, 0, 1000, 1000);
+	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
 	
 	public Cell() {
 		rad = 20;
-		vx = 0;
-		vy = 0;
+		v = 100/rad + 1;
 		x = 400;
 		y = 300;
 		
@@ -28,7 +25,6 @@ public class Cell {
 	}
 	
 	public void paint(Graphics g) {
-		update();
 		g.setColor(color);
 		g.fillOval(x, y, rad, rad);
 		
@@ -38,23 +34,18 @@ public class Cell {
 		collideWorld();
 	}
 	
-	public void update() {
-		x += vx;
-		y += vy;
-	}
-	
 	public void collideWorld() {
 		if (x >= word.getMaxX() - rad) {
-			vx *= -1;
+			x = (int) (word.getMaxX() - rad);
 		}
 		if (x <= word.getMinX()) {
-			vx *= -1;
+			x = (int) word.getMinX();
 		}
 		if (y >= word.getMaxY() - rad) {
-			vy *= -1;
+			y = (int) (word.getMaxY() - rad);
 		}
 		if (x <= word.getMinY()) {
-			vy *= -1;
+			y = (int) word.getMinY();
 		}
 	}
 	
@@ -66,7 +57,19 @@ public class Cell {
 		return y;
 	}
 	
+	public double getV() {
+		return v;
+	}
+	
 	public int getRad() {
 		return rad;
+	}
+	
+	public int getCenterX() {
+		return x + rad;
+	}
+	
+	public int getCenterY() {
+		return y + rad;
 	}
 }

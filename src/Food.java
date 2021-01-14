@@ -6,11 +6,11 @@ public class Food {
 	
 	private int x, y;
 	private int rad;
+	private double vx, vy;
 	private Color color;
 	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
 	
 	public Food() {
-
 		//random radius
 		rad = 10;
 		
@@ -27,12 +27,18 @@ public class Food {
 	}
 	
 	public void paint(Graphics g) {
+		update();
 		g.setColor(color);
 		g.fillOval(x, y, rad, rad);
 		
 		/* have the enemy object bounce off
 		 * using helper methods
 		 */
+	}
+	
+	public void update() {
+		x += vx;
+		y += vy;
 	}
 	
 	public int getX() {
@@ -45,5 +51,13 @@ public class Food {
 	
 	public int getRad() {
 		return rad;
+	}
+	
+	public void setVx(double paramVx) {
+		vx = paramVx;
+	}
+	
+	public void setVy(double paramVy) {
+		vy = paramVy;
 	}
 }
