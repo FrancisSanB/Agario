@@ -62,6 +62,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 						enemies.remove(e2);
 					}
 				}
+				
 			}*/
 		}
 		p.paint(g);

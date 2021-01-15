@@ -31,14 +31,24 @@ public class Food {
 		g.setColor(color);
 		g.fillOval(x, y, rad, rad);
 		
-		/* have the enemy object bounce off
-		 * using helper methods
-		 */
 	}
 	
 	public void update() {
 		x += vx;
 		y += vy;
+	}
+	
+	public boolean isColliding(Enemy e) {
+		//get the x distance and y distance between enemies and total radius
+		int x = Math.abs(e.getCenterX() - this.x);
+		int y = Math.abs(e.getCenterY() - this.y);
+		int totalRad = e.getRad() + rad;
+		
+		//calculate distance
+		int distance = (int) (Math.sqrt( (double)(Math.pow(x, x)) + (double)(Math.pow(y, y)) ));
+
+		//return if the distance is smaller than total radius
+		return distance < totalRad;
 	}
 	
 	public int getX() {
