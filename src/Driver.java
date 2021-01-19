@@ -39,7 +39,14 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		
 		double vx = Math.sin(theta)*p.getV();
 		double vy = Math.cos(theta)*p.getV();
-		System.out.println(vx + ", " + vy);
+		
+		if (distanceY > 0) {
+			vx *= -1;
+			vy *= -1;
+		}
+		
+		System.out.println("velocity: " + vx + ", " + vy);
+		System.out.println("distance: " + distanceX + ", " + distanceY);
 		
 		//call each object to paint themselves
 		for (Food f: foods) {
@@ -50,6 +57,8 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		}
 		for(Enemy e: enemies) {
 			e.paint(g);
+			//e.addVx(vx);
+			//e.addVy(vy);
 			
 			/*for (Enemy e2: enemies) {
 				if (e == e2) {

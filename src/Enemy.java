@@ -102,4 +102,12 @@ public class Enemy {
 	public int getCenterY() {
 		return y + rad;
 	}
+	
+	public void addVx(double paramVx) {
+		vx += paramVx;
+	}
+	
+	public void addVy(double paramVy) {
+		vy += paramVy;
+	}
 }
