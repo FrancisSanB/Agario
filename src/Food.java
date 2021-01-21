@@ -51,6 +51,19 @@ public class Food {
 		return distance < totalRad;
 	}
 	
+	public boolean isColliding(Cell e) {
+		//get the x distance and y distance between enemies and total radius
+		int disX = Math.abs(e.getCenterX() - x);
+		int disY = Math.abs(e.getCenterY() - y);
+		int totalRad = e.getRad() + rad;
+		
+		//calculate distance
+		double distance = Math.sqrt( (double)(Math.pow(disX, 2)) + (double)(Math.pow(disY, 2)) );
+
+		//return if the distance is smaller than total radius
+		return distance < totalRad;
+	}
+	
 	public int getX() {
 		return x;
 	}

@@ -72,4 +72,8 @@ public class Cell {
 	public int getCenterY() {
 		return y + rad;
 	}
+	
+	public void addRad(int paramRad) {
+		rad += paramRad;
+	}
 }

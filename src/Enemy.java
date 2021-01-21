@@ -6,12 +6,12 @@ public class Enemy {
 	
 	private int x, y;
 	private double vx, vy;
+	private double addVx, addVy;
 	private int rad;
 	private double k;
 	private Color color;
 	private int vmag, theta;
 	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
-	//Rectangle word = new Rectangle(200, 200, 750, 750);
 	
 	public Enemy() {
 
@@ -51,8 +51,8 @@ public class Enemy {
 	}
 	
 	public void update() {
-		x += vx;
-		y += vy;
+		x += vx + addVx;
+		y += vy + addVy;
 	}
 	
 	public boolean isColliding(Enemy e) {
@@ -104,10 +104,10 @@ public class Enemy {
 	}
 	
 	public void addVx(double paramVx) {
-		vx += paramVx;
+		addVx = paramVx;
 	}
 	
 	public void addVy(double paramVy) {
-		vy += paramVy;
+		addVy = paramVy;
 	}
 }

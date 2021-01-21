@@ -20,6 +20,8 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	Cell p = new Cell();
 	Font verdana = new Font("Verdana", Font.BOLD, 30);
 	
+	//public double globalX, globalY;
+	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		//g.fillOval(30, 30, 50, 50);
@@ -45,8 +47,9 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 			vy *= -1;
 		}
 		
-		System.out.println("velocity: " + vx + ", " + vy);
-		System.out.println("distance: " + distanceX + ", " + distanceY);
+		//System.out.println("velocity: " + vx + ", " + vy);
+		//System.out.println("distance: " + distanceX + ", " + distanceY);
+		//System.out.println(globalX + ", " + globalY);
 		
 		//call each object to paint themselves
 		for (Food f: foods) {
@@ -54,11 +57,18 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 			f.setVx(vx);
 			f.setVy(vy);
 			
+			if (f.isColliding(p) ) {
+				System.out.println("hit");
+				foods.remove(f);
+				p.addRad(1);
+			}
+			
 		}
+		
 		for(Enemy e: enemies) {
 			e.paint(g);
-			//e.addVx(vx);
-			//e.addVy(vy);
+			e.addVx(vx);
+			e.addVy(vy);
 			
 			/*for (Enemy e2: enemies) {
 				if (e == e2) {
