@@ -40,12 +40,12 @@ public class Food {
 	
 	public boolean isColliding(Enemy e) {
 		//get the x distance and y distance between enemies and total radius
-		int x = Math.abs(e.getCenterX() - this.x);
-		int y = Math.abs(e.getCenterY() - this.y);
+		int disX = Math.abs(e.getCenterX() - x);
+		int disY = Math.abs(e.getCenterY() - y);
 		int totalRad = e.getRad() + rad;
 		
 		//calculate distance
-		int distance = (int) (Math.sqrt( (double)(Math.pow(x, x)) + (double)(Math.pow(y, y)) ));
+		double distance = Math.sqrt( (double)(Math.pow(disX, 2)) + (double)(Math.pow(disY, 2)) );
 
 		//return if the distance is smaller than total radius
 		return distance < totalRad;

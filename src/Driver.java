@@ -20,8 +20,6 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	Cell p = new Cell();
 	Font verdana = new Font("Verdana", Font.BOLD, 30);
 	
-	//public double globalX, globalY;
-	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		//g.fillOval(30, 30, 50, 50);
@@ -58,31 +56,62 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 			f.setVy(vy);
 			
 			if (f.isColliding(p) ) {
-				System.out.println("hit");
-				foods.remove(f);
+				System.out.println("player hit food");
 				p.addRad(1);
+				foods.remove(f);
 			}
 			
 		}
 		
-		for(Enemy e: enemies) {
+		for (Enemy e: enemies) {
 			e.paint(g);
 			e.addVx(vx);
 			e.addVy(vy);
 			
-			/*for (Enemy e2: enemies) {
-				if (e == e2) {
-					continue;
+			//enemy-player collision
+			if (e.isColliding(p)) {
+				System.out.print("enemy hit player");
+				e.addRad(1);
+				p.setRad(20);
+				
+
+				/*//which is larger
+				if (e.getRad() > p.getRad()) {
+					p.setRad(20);
+					e.addRad(p.getRad());
+				} else {
+					enemies.remove(e);
+					p.addRad(e.getRad());
+				}*/
+			}
+			
+			//enemy-food collision
+			for (Food f: foods) {
+				if (f.isColliding(e)) {
+					System.out.println("enemy hit food");
+					e.addRad(1);
+					foods.remove(f);
 				}
-				if (e.isColliding(e2) ) {
-					if (e.getRad() > e2.getRad()) {
+			}
+			
+			/*//enemy-enemy collision
+			for (Enemy f: enemies) {
+				if (f.isColliding(e)) {
+					System.out.println("enemy hit enemy");
+					e.addRad(1);
+					foods.remove(f);
+					
+					//which enemy is larger
+					if (e.getRad() > f.getRad()) {
 						enemies.remove(e);
+						f.addRad(1);
 					} else {
-						enemies.remove(e2);
+						enemies.remove(f);
+						e.addRad(1);
 					}
 				}
-				
 			}*/
+			
 		}
 		p.paint(g);
 		
@@ -123,11 +152,11 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		frame.add(this);
 		
 		/* add 50  Enemies */
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 25; i++) {
 			enemies.add(new Enemy());
 		}
 		
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 250; i++) {
 			foods.add(new Food());
 		}
 		p = new Cell();

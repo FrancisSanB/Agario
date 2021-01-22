@@ -26,12 +26,12 @@ public class Cell {
 	
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillOval(x, y, rad, rad);
+		g.fillOval(getCenterX(), getCenterY(), rad, rad);
 		
 		/* have the enemy object bounce off
 		 * using helper methods
 		 */
-		collideWorld();
+		//collideWorld();
 	}
 	
 	public void collideWorld() {
@@ -63,6 +63,10 @@ public class Cell {
 	
 	public int getRad() {
 		return rad;
+	}
+	
+	public void setRad(int paramRad) {
+		rad = paramRad;
 	}
 	
 	public int getCenterX() {
