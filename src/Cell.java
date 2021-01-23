@@ -8,7 +8,6 @@ public class Cell {
 	private double v;
 	private int rad;
 	private Color color;
-	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
 	
 	public Cell() {
 		rad = 20;
@@ -27,26 +26,33 @@ public class Cell {
 	public void paint(Graphics g) {
 		g.setColor(color);
 		g.fillOval(x - rad/2, y - rad/2, rad, rad);
-		//g.fillOval(x, y, rad, rad);
 		
-		/* have the enemy object bounce off
-		 * using helper methods
-		 */
-		//collideWorld();
+		if (x > 400) {
+			x = 400;
+		}
+		if (x < 400) {
+			x = 400;
+		}
+		if (y > 300) {
+			y = 300;
+		}
+		if (y < 300) {
+			y = 300;
+		}
 	}
 	
-	public void collideWorld() {
-		if (x >= word.getMaxX() - rad) {
-			x = (int) (word.getMaxX() - rad);
+	public void collideWorld(int xmin, int ymin, int xmax, int ymax) {
+		if (x + rad/2 >= xmax) {
+			x = xmax - rad/2;
 		}
-		if (x <= word.getMinX()) {
-			x = (int) word.getMinX();
+		if (x - rad/2 <= xmin) {
+			x = xmin + rad/2;
 		}
-		if (y >= word.getMaxY() - rad) {
-			y = (int) (word.getMaxY() - rad);
+		if (y + rad/2 >= ymax) {
+			y = ymax - rad/2;
 		}
-		if (x <= word.getMinY()) {
-			y = (int) word.getMinY();
+		if (y - rad/2 <= ymin) {
+			y = ymin + rad/2;
 		}
 	}
 	
@@ -69,6 +75,10 @@ public class Cell {
 	public void setRad(int paramRad) {
 		rad = paramRad;
 	}
+
+	public void addRad(int paramRad) {
+		rad += paramRad;
+	}
 	
 	public int getCenterX() {
 		return x;
@@ -76,9 +86,5 @@ public class Cell {
 	
 	public int getCenterY() {
 		return y;
-	}
-	
-	public void addRad(int paramRad) {
-		rad += paramRad;
 	}
 }

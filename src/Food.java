@@ -15,8 +15,8 @@ public class Food {
 		rad = 10;
 		
 		//spawn the food randomly anywhere on 800x600 screen
-		x = (int)(Math.random()*word.getMaxX() - rad + 1);
-		y = (int)(Math.random()*word.getMaxY() - rad + 1);
+		x = (int)(Math.random()*2000 - rad + 1);
+		y = (int)(Math.random()*2000 - rad + 1);
 		
 		//generate random color
 		int r = (int)(Math.random()*256);
@@ -45,7 +45,7 @@ public class Food {
 		int totalRad = e.getRad() + rad;
 		
 		//calculate distance
-		double distance = Math.sqrt( (double)(Math.pow(disX, 2)) + (double)(Math.pow(disY, 2)) );
+		double distance = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
 
 		//return if the distance is smaller than total radius
 		return distance < totalRad;
@@ -58,10 +58,25 @@ public class Food {
 		int totalRad = e.getRad() + rad;
 		
 		//calculate distance
-		double distance = Math.sqrt( (double)(Math.pow(disX, 2)) + (double)(Math.pow(disY, 2)) );
+		double distance = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
 
 		//return if the distance is smaller than total radius
 		return distance < totalRad;
+	}
+	
+	public void collideWorld(int xmin, int ymin, int xmax, int ymax) {
+		if (x >= xmax - rad) {
+			x = xmax - rad;
+		}
+		if (x <= xmin) {
+			x = xmin;
+		}
+		if (y >= ymax - rad) {
+			y = ymax - rad;
+		}
+		if (y <= ymin) {
+			y = ymin;
+		}
 	}
 	
 	public int getX() {

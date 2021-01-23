@@ -11,7 +11,7 @@ public class Enemy {
 	private double k;
 	private Color color;
 	private int vmag, theta;
-	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
+	Rectangle word = new Rectangle(0, 0, 2000, 2000);
 	
 	public Enemy() {
 
@@ -41,10 +41,7 @@ public class Enemy {
 		update();
 		g.setColor(color);
 		g.fillOval(x, y, rad, rad);
-		
-		/* have the enemy object bounce off
-		 * using helper methods
-		 */
+
 		//collideWorld();
 	}
 	
@@ -60,7 +57,7 @@ public class Enemy {
 		int totalRad = e.getRad() + rad;
 		
 		//calculate distance
-		double distance = Math.sqrt( (double)(Math.pow(disX, 2)) + (double)(Math.pow(disY, 2)) );
+		double distance = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
 
 		//return if the distance is smaller than total radius
 		return distance < totalRad;
@@ -73,24 +70,28 @@ public class Enemy {
 		int totalRad = e.getRad() + rad;
 		
 		//calculate distance
-		double distance = Math.sqrt( (double)(Math.pow(disX, 2)) + (double)(Math.pow(disY, 2)) );
+		double distance = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
 
 		//return if the distance is smaller than total radius
 		return distance < totalRad;
 	}
 	
-	public void collideWorld() {
-		if (x >= word.getMaxX() - rad) {
+	public void collideWorld(int xmin, int ymin, int xmax, int ymax) {
+		if (x >= xmax - rad) {
 			vx *= -1;
+			x = xmax - rad;
 		}
-		if (x <= word.getMinX()) {
+		if (x <= xmin) {
 			vx *= -1;
+			x = xmin;
 		}
-		if (y >= word.getMaxY() - rad) {
+		if (y >= ymax - rad) {
 			vy *= -1;
+			y = ymax - rad;
 		}
-		if (y <= word.getMinY()) {
+		if (y <= ymin) {
 			vy *= -1;
+			y = ymin;
 		}
 	}
 	
@@ -107,11 +108,11 @@ public class Enemy {
 	}
 	
 	public int getCenterX() {
-		return x + rad;
+		return x + rad/2;
 	}
 	
 	public int getCenterY() {
-		return y + rad;
+		return y + rad/2;
 	}
 	
 	public void addVx(double paramVx) {
