@@ -20,34 +20,22 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	Cell p = new Cell();
 	Font verdana = new Font("Verdana", Font.BOLD, 30);
 	
+	public double vx, vy;
+	public int x = 0;
+	public int y = 0;
+	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		//g.fillOval(30, 30, 50, 50);
-		double mouseX = MouseInfo.getPointerInfo().getLocation().getX();
-		double mouseY = MouseInfo.getPointerInfo().getLocation().getY();
-		double px = p.getCenterX();
-		double py = p.getCenterY();
-		double distanceX = mouseX - px;
-		double distanceY = mouseY - py;
-		double theta;
 		
-		if (distanceY == 0) {
-			theta = 0;
-		} else {
-			theta = Math.atan(distanceX / distanceY);
-		}
+		//set vx and vy to get things ready to move
+		move();
 		
-		double vx = Math.sin(theta)*p.getV();
-		double vy = Math.cos(theta)*p.getV();
-		
-		if (distanceY > 0) {
-			vx *= -1;
-			vy *= -1;
-		}
-		
-		//System.out.println("velocity: " + vx + ", " + vy);
-		//System.out.println("distance: " + distanceX + ", " + distanceY);
-		//System.out.println(globalX + ", " + globalY);
+		//word border
+		update();
+		g.drawRect(x, y, 2000, 2000);
+		g.setColor(Color.red);
+		g.drawLine(400, 0, 400, 600);
+		g.drawLine(0, 300, 800, 300);
 		
 		//call each object to paint themselves
 		for (Food f: foods) {
@@ -69,30 +57,30 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 			e.addVy(vy);
 			
 			//enemy-player collision
-			if (e.isColliding(p)) {
+			/*if (e.isColliding(p)) {
 				System.out.print("enemy hit player");
 				e.addRad(1);
 				p.setRad(20);
 				
 
-				/*//which is larger
+				//which is larger
 				if (e.getRad() > p.getRad()) {
 					p.setRad(20);
 					e.addRad(p.getRad());
 				} else {
 					enemies.remove(e);
 					p.addRad(e.getRad());
-				}*/
-			}
+				}
+			}*/
 			
 			//enemy-food collision
-			for (Food f: foods) {
+			/*for (Food f: foods) {
 				if (f.isColliding(e)) {
 					System.out.println("enemy hit food");
 					e.addRad(1);
 					foods.remove(f);
 				}
-			}
+			}*/
 			
 			/*//enemy-enemy collision
 			for (Enemy f: enemies) {
@@ -121,29 +109,6 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		g.drawString("Mass: " + p.getRad(), 0, 550);
 		g.drawString("Players left: " + enemies.size(), 0, 30);
 		
-		//enemy collision
-		/*for (int i = 0; i < enemies.size(); i++) {
-			//enemy to enemy collision
-			for (int j = 0; j < enemies.size(); j++) {
-				if (i == j) {
-					continue;
-				}
-				if (enemies.get(i).isColliding(enemies.get(j))) {
-					System.out.print("Collide! ");
-					if (enemies.get(i).getRad() >= enemies.get(j).getRad()) {
-						enemies.remove(j);
-						System.out.println("j");
-					} else { 
-						enemies.remove(i);
-						System.out.println("i");
-					}
-				}
-			}
-			
-			for (int j = 0; j < foods.size(); j++) {
-			}
-		}*/
-		//Colliding();
 	}
 
 	public Driver() {
@@ -166,6 +131,39 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+	}
+	
+	public void removeEnemy(Enemy e) {
+		enemies.remove(e);
+	}
+	
+	public void update() {
+		x += vx;
+		y += vy;
+	}
+	
+	public void move() {
+		double mouseX = MouseInfo.getPointerInfo().getLocation().getX();
+		double mouseY = MouseInfo.getPointerInfo().getLocation().getY();
+		double px = p.getX();
+		double py = p.getY();
+		double distanceX = mouseX - px;
+		double distanceY = mouseY - py;
+		double theta;
+		
+		if (distanceY == 0) {
+			theta = 0;
+		} else {
+			theta = Math.atan(distanceX / distanceY);
+		}
+		
+		vx = Math.sin(theta)*p.getV();
+		vy = Math.cos(theta)*p.getV();
+		
+		if (distanceY > 0) {
+			vx *= -1;
+			vy *= -1;
+		}
 	}
 	
 	public static void main(String[] arg) {
@@ -206,37 +204,5 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		repaint();
-	}
-	
-	public void removeEnemy(Enemy e) {
-		enemies.remove(e);
-	}
-	
-	public void Colliding() {
-		int size = enemies.size();
-		
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				if (i == j) {
-					continue;
-				}
-				
-				if ((int)distance(i, j) <= enemies.get(i).getRad() + enemies.get(j).getRad()) {
-					if (enemies.get(i).getRad() >= enemies.get(j).getRad()) {
-						enemies.remove(j);
-						size--;
-					} else {
-						enemies.remove(i);
-						size--;
-					}
-				}
-			}
-		}
-	}
-	
-	public double distance(int i, int j) {
-		return Math.sqrt(Math.pow((double)(enemies.get(i).getX()+enemies.get(i).getRad() - enemies.get(j).getX())+enemies.get(j).getRad(), 2.0) + 
-							Math.pow((double)(enemies.get(i).getY()+enemies.get(i).getRad() - enemies.get(j).getY())+enemies.get(j).getRad(), 2.0));
-		
 	}
 }

@@ -39,15 +39,13 @@ public class Enemy {
 	
 	public void paint(Graphics g) {
 		update();
-		g.setColor(Color.black);
-		g.drawRect(word.x, word.x, word.width, word.height);
 		g.setColor(color);
 		g.fillOval(x, y, rad, rad);
 		
 		/* have the enemy object bounce off
 		 * using helper methods
 		 */
-		collideWorld();
+		//collideWorld();
 	}
 	
 	public void update() {

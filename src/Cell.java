@@ -26,7 +26,8 @@ public class Cell {
 	
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillOval(getCenterX(), getCenterY(), rad, rad);
+		g.fillOval(x - rad/2, y - rad/2, rad, rad);
+		//g.fillOval(x, y, rad, rad);
 		
 		/* have the enemy object bounce off
 		 * using helper methods
@@ -70,11 +71,11 @@ public class Cell {
 	}
 	
 	public int getCenterX() {
-		return x + rad;
+		return x;
 	}
 	
 	public int getCenterY() {
-		return y + rad;
+		return y;
 	}
 	
 	public void addRad(int paramRad) {

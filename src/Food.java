@@ -11,7 +11,7 @@ public class Food {
 	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
 	
 	public Food() {
-		//random radius
+		//radius
 		rad = 10;
 		
 		//spawn the food randomly anywhere on 800x600 screen
