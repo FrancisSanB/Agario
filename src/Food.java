@@ -8,15 +8,15 @@ public class Food {
 	private int rad;
 	private double vx, vy;
 	private Color color;
-	Rectangle word = new Rectangle(-500, -500, 2000, 2000);
+	Rectangle word = new Rectangle(0, 0, 5000, 5000);
 	
 	public Food() {
 		//radius
-		rad = 10;
+		rad = 5;
 		
 		//spawn the food randomly anywhere on 800x600 screen
-		x = (int)(Math.random()*2000 - rad + 1);
-		y = (int)(Math.random()*2000 - rad + 1);
+		x = (int)(Math.random()*(word.getMaxX() - rad - word.getMinX() + 1) + word.getMinX());
+		y = (int)(Math.random()*(word.getMaxX() - rad- word.getMinX() + 1) + word.getMinX());
 		
 		//generate random color
 		int r = (int)(Math.random()*256);
@@ -29,7 +29,7 @@ public class Food {
 	public void paint(Graphics g) {
 		update();
 		g.setColor(color);
-		g.fillOval(x, y, rad, rad);
+		g.fillOval(x, y, rad*2, rad*2);
 		
 	}
 	

@@ -3,19 +3,18 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Enemy {
-	
 	private int x, y;
 	private double vx, vy;
 	private double addVx, addVy;
 	private int rad;
 	private Color color;
 	private int vmag, theta;
-	Rectangle word = new Rectangle(0, 0, 2000, 2000);
+	Rectangle word = new Rectangle(0, 0, 5000, 5000);
 	
 	public Enemy() {
 
 		//random radius
-		rad = (int) ((Math.random()*(60 - 20))+20);
+		rad = (int) ((Math.random()*(30 - 20))+20);
 		
 		vmag = (int)(7-rad/10);
 		theta = (int)(Math.random()*(360-0+1)+0);
@@ -39,7 +38,7 @@ public class Enemy {
 	public void paint(Graphics g) {
 		update();
 		g.setColor(color);
-		g.fillOval(x, y, rad, rad);
+		g.fillOval(x, y, rad*2, rad*2);
 		//g.drawLine(getCenterX(), 0, getCenterX(), 600);
 		//g.drawLine(0, getCenterY(), 800, getCenterY());
 	}
@@ -107,11 +106,11 @@ public class Enemy {
 	}
 	
 	public int getCenterX() {
-		return x + rad/2;
+		return x + rad;
 	}
 	
 	public int getCenterY() {
-		return y + rad/2;
+		return y + rad;
 	}
 	
 	public void addVx(double paramVx) {

@@ -25,8 +25,8 @@ public class Cell {
 	
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillOval(x - rad/2, y - rad/2, rad, rad);
-		g.drawRect(x - rad/2, y - rad/2, rad, rad);
+		g.fillOval(x - rad, y - rad, rad*2, rad*2);
+		g.drawRect(x - rad, y - rad, rad*2, rad*2);
 		
 		if (x > 400) {
 			x = 400;
@@ -41,41 +41,22 @@ public class Cell {
 			y = 300;
 		}
 	}
-	
-	public void collideWorld(int xmin, int ymin, int xmax, int ymax) {
-		if (x + rad/2 >= xmax) {
-			x = xmax - rad/2;
-		}
-		if (x - rad/2 <= xmin) {
-			x = xmin + rad/2;
-		}
-		if (y + rad/2 >= ymax) {
-			y = ymax - rad/2;
-		}
-		if (y - rad/2 <= ymin) {
-			y = ymin + rad/2;
-		}
-	}
 
 	public int iscollideWorldX(int xmin, int xmax) {
-		if (x + rad/2 > xmax) {
-			//x = xmax - rad/2;
+		if (x + rad > xmax) {
 			return 1;
 		}
-		if (x - rad/2 < xmin) {
-			//x = xmin + rad/2;
+		if (x - rad < xmin) {
 			return 2;
 		}
 		return 0;
 	}
 	
 	public int iscollideWorldY(int ymin, int ymax) {
-		if (y + rad/2 > ymax) {
-			//y = ymax - rad/2;
+		if (y + rad > ymax) {
 			return 1;
 		}
-		if (y - rad/2 < ymin) {
-			//y = ymin + rad/2;
+		if (y - rad < ymin) {
 			return 2;
 		}
 		return 0;

@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Driver extends JPanel implements MouseListener, ActionListener {
-	
 	//Create ArrayList for enemies
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	ArrayList<Food> foods = new ArrayList<Food>();
@@ -29,10 +28,10 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		super.paintComponent(g);
 		
 		//set vx and vy to get things ready to move
-		move();
+		move(5000);
 		
 		//word border
-		updateBorder(g);
+		updateBorder(g, 5000);
 		
 		//call each object to paint themselves
 		for (Food f: foods) {
@@ -52,7 +51,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		
 		//collision
 		collision();
-		collisionBorder();
+		collisionBorder(5000);
 		
 		//paint words
 		g.setColor(Color.black);
@@ -60,7 +59,6 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		g.drawString("Mass: " + p.getRad(), 0, 550);
 		g.drawString("Enemies left: " + enemies.size(), 0, 30);
 		g.drawString("Food left: " + foods.size(), 0, 60);
-		
 	}
 
 	public Driver() {
@@ -93,6 +91,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 				System.out.println("player hit food");
 				p.addRad(1);
 				foods.remove(f);
+				foods.add(new Food());
 				break;
 			}
 		}
@@ -104,6 +103,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 					System.out.println("enemy hit food");
 					e.addRad(1);
 					foods.remove(f);
+					foods.add(new Food());
 					break;
 				}
 			}
@@ -121,7 +121,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 					p.addRad(e.getRad());
 				}
 			}
-			/*
+			
 			//enemy-enemy collision
 			for (Enemy e2: enemies) {
 				if (e == e2) {
@@ -140,37 +140,35 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 						enemies.remove(e2);
 					}
 				}
-			}*/
+			}
 			
 		}
 	}
 	
 	//collision with the world
-	public void collisionBorder() {
-		//p.collideWorld(x, y, x + 2000, y + 2000);
-		
+	public void collisionBorder(int max) {
 		for (Enemy e: enemies) {
-			e.collideWorld(x, y, x + 2000, y + 2000);
+			e.collideWorld(x, y, x + max, y + max);
 		}
 		
 		for (Food f: foods) {
-			f.collideWorld(x, y, x + 2000, y + 2000);
+			f.collideWorld(x, y, x + max, y + max);
 		}
 	}
 	
 	//update global x and y to render border
-	public void updateBorder(Graphics g) {
+	public void updateBorder(Graphics g, int max) {
 		x += vx;
 		y += vy;
 		
-		g.drawRect(x, y, 2000, 2000);
+		g.drawRect(x, y, max, max);
 		g.setColor(Color.red);
 		g.drawLine(400, 0, 400, 600);
 		g.drawLine(0, 300, 800, 300);
 	}
 	
 	//set vx and vy to get things ready to move
-	public void move() {
+	public void move(int max) {
 		double mouseX = MouseInfo.getPointerInfo().getLocation().getX();
 		double mouseY = MouseInfo.getPointerInfo().getLocation().getY();
 		double px = p.getX();
@@ -186,17 +184,17 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		}
 		
 		//border collision
-		if (p.iscollideWorldX(x, x + 2000) == 1 && distanceX > 0) {
+		if (p.iscollideWorldX(x, x + max) == 1 && distanceX > 0) {
 			vx = 0;
-		} else if (p.iscollideWorldX(x, x + 2000) == 2 && distanceX < 0) {
+		} else if (p.iscollideWorldX(x, x + max) == 2 && distanceX < 0) {
 			vx = 0;
 		} else {
 			vx = Math.sin(theta)*p.getV();
 		}
 		
-		if (p.iscollideWorldY(y, y + 2000) == 1 && distanceY > 0) {
+		if (p.iscollideWorldY(y, y + max) == 1 && distanceY > 0) {
 			vy = 0;
-		} else if (p.iscollideWorldY(y, y + 2000) == 2 && distanceY < 0) {
+		} else if (p.iscollideWorldY(y, y + max) == 2 && distanceY < 0) {
 			vy = 0;
 		} else {
 			vy = Math.cos(theta)*p.getV();
