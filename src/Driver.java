@@ -58,7 +58,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		g.setColor(Color.black);
 		g.setFont(verdana);
 		g.drawString("Mass: " + p.getRad(), 0, 550);
-		g.drawString("Players left: " + enemies.size(), 0, 30);
+		g.drawString("Enemies left: " + enemies.size(), 0, 30);
 		g.drawString("Food left: " + foods.size(), 0, 60);
 		
 	}
@@ -73,7 +73,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 			enemies.add(new Enemy());
 		}
 		
-		for (int i = 0; i < 250; i++) {
+		for (int i = 0; i < 500; i++) {
 			foods.add(new Food());
 		}
 		
@@ -107,38 +107,37 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 					break;
 				}
 			}
-			/*
+			
 			//enemy-player collision
 			if (e.isColliding(p)) {
 				System.out.println("enemy hit player");
-				e.addRad(1);
-				p.setRad(20);
-				
 				
 				//which is larger
 				if (e.getRad() > p.getRad()) {
 					p.setRad(20);
-					e.addRad(p.getRad());
+					//e.addRad(p.getRad());
 				} else {
 					enemies.remove(e);
 					p.addRad(e.getRad());
 				}
-			}*/
+			}
 			/*
 			//enemy-enemy collision
 			for (Enemy e2: enemies) {
+				if (e == e2) {
+					break;
+				}
+				
 				if (e2.isColliding(e)) {
 					System.out.println("enemy hit enemy");
-					e.addRad(1);
-					enemies.remove(e2);
 					
 					//which enemy is larger
-					if (e.getRad() > e2.getRad()) {
+					if (e.getRad() < e2.getRad()) {
+						e2.addRad(e.getRad());
 						enemies.remove(e);
-						e2.addRad(1);
 					} else {
+						e.addRad(e2.getRad());
 						enemies.remove(e2);
-						e.addRad(1);
 					}
 				}
 			}*/
@@ -148,7 +147,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	
 	//collision with the world
 	public void collisionBorder() {
-		p.collideWorld(x, y, x + 2000, y + 2000);
+		//p.collideWorld(x, y, x + 2000, y + 2000);
 		
 		for (Enemy e: enemies) {
 			e.collideWorld(x, y, x + 2000, y + 2000);
@@ -186,8 +185,22 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 			theta = Math.atan(distanceX / distanceY);
 		}
 		
-		vx = Math.sin(theta)*p.getV();
-		vy = Math.cos(theta)*p.getV();
+		//border collision
+		if (p.iscollideWorldX(x, x + 2000) == 1 && distanceX > 0) {
+			vx = 0;
+		} else if (p.iscollideWorldX(x, x + 2000) == 2 && distanceX < 0) {
+			vx = 0;
+		} else {
+			vx = Math.sin(theta)*p.getV();
+		}
+		
+		if (p.iscollideWorldY(y, y + 2000) == 1 && distanceY > 0) {
+			vy = 0;
+		} else if (p.iscollideWorldY(y, y + 2000) == 2 && distanceY < 0) {
+			vy = 0;
+		} else {
+			vy = Math.cos(theta)*p.getV();
+		}
 		
 		if (distanceY > 0) {
 			vx *= -1;

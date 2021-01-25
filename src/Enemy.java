@@ -8,7 +8,6 @@ public class Enemy {
 	private double vx, vy;
 	private double addVx, addVy;
 	private int rad;
-	private double k;
 	private Color color;
 	private int vmag, theta;
 	Rectangle word = new Rectangle(0, 0, 2000, 2000);
@@ -41,8 +40,8 @@ public class Enemy {
 		update();
 		g.setColor(color);
 		g.fillOval(x, y, rad, rad);
-
-		//collideWorld();
+		//g.drawLine(getCenterX(), 0, getCenterX(), 600);
+		//g.drawLine(0, getCenterY(), 800, getCenterY());
 	}
 	
 	public void update() {
