@@ -24,10 +24,14 @@ public class Cell {
 	}
 	
 	public void paint(Graphics g) {
+		update();
+		
 		g.setColor(color);
 		g.fillOval(x - rad, y - rad, rad*2, rad*2);
 		g.drawRect(x - rad, y - rad, rad*2, rad*2);
-		
+	}
+	
+	public void update() {
 		if (x > 400) {
 			x = 400;
 		}
@@ -39,6 +43,9 @@ public class Cell {
 		}
 		if (y < 300) {
 			y = 300;
+		}
+		if (rad > 250) {
+			rad = 250;
 		}
 	}
 

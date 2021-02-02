@@ -8,7 +8,7 @@ public class Food {
 	private int rad;
 	private double vx, vy;
 	private Color color;
-	Rectangle word = new Rectangle(0, 0, 5000, 5000);
+	Rectangle word = new Rectangle(0, 0, 2000, 2000);
 	
 	public Food() {
 		//radius
@@ -17,6 +17,8 @@ public class Food {
 		//spawn the food randomly anywhere on 800x600 screen
 		x = (int)(Math.random()*(word.getMaxX() - rad - word.getMinX() + 1) + word.getMinX());
 		y = (int)(Math.random()*(word.getMaxX() - rad- word.getMinX() + 1) + word.getMinX());
+		//x = (int)(Math.random()*2000 - rad + 1);
+		//y = (int)(Math.random()*2000 - rad + 1);
 		
 		//generate random color
 		int r = (int)(Math.random()*256);

@@ -9,7 +9,7 @@ public class Enemy {
 	private int rad;
 	private Color color;
 	private int vmag, theta;
-	Rectangle word = new Rectangle(0, 0, 5000, 5000);
+	Rectangle word = new Rectangle(0, 0, 2000, 2000);
 	
 	public Enemy() {
 
@@ -39,6 +39,7 @@ public class Enemy {
 		update();
 		g.setColor(color);
 		g.fillOval(x, y, rad*2, rad*2);
+		
 		//g.drawLine(getCenterX(), 0, getCenterX(), 600);
 		//g.drawLine(0, getCenterY(), 800, getCenterY());
 	}
@@ -46,6 +47,10 @@ public class Enemy {
 	public void update() {
 		x += vx + addVx;
 		y += vy + addVy;
+		
+		if (rad > 250) {
+			rad = 250;
+		}
 	}
 	
 	public boolean isColliding(Cell e) {

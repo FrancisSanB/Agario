@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -23,15 +22,16 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 	public double vx, vy;
 	public int x = 0;
 	public int y = 0;
+	public int borderMax = 2000;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		
 		//set vx and vy to get things ready to move
-		move(5000);
+		move(borderMax);
 		
 		//word border
-		updateBorder(g, 5000);
+		updateBorder(g, borderMax);
 		
 		//call each object to paint themselves
 		for (Food f: foods) {
@@ -51,7 +51,7 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		
 		//collision
 		collision();
-		collisionBorder(5000);
+		collisionBorder(borderMax);
 		
 		//paint words
 		g.setColor(Color.black);
@@ -88,7 +88,6 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 		for (Food f: foods) {
 			//player-food collision
 			if (f.isColliding(p) ) {
-				System.out.println("player hit food");
 				p.addRad(1);
 				foods.remove(f);
 				foods.add(new Food());
@@ -100,7 +99,6 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 			//enemy-food collision
 			for (Food f: foods) {
 				if (f.isColliding(e)) {
-					System.out.println("enemy hit food");
 					e.addRad(1);
 					foods.remove(f);
 					foods.add(new Food());
@@ -110,8 +108,6 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 			
 			//enemy-player collision
 			if (e.isColliding(p)) {
-				System.out.println("enemy hit player");
-				
 				//which is larger
 				if (e.getRad() > p.getRad()) {
 					p.setRad(20);
@@ -129,8 +125,6 @@ public class Driver extends JPanel implements MouseListener, ActionListener {
 				}
 				
 				if (e2.isColliding(e)) {
-					System.out.println("enemy hit enemy");
-					
 					//which enemy is larger
 					if (e.getRad() < e2.getRad()) {
 						e2.addRad(e.getRad());
